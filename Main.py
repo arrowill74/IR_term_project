@@ -54,22 +54,15 @@ def tfidf(doc, dictionary):
 			tf[term] += 1
 		else:
 			tf[term] = 1
-	terms = sorted(list(set(wordsList))) #消除重複值並排序
-	# tfidf = {} #{term : tfidf}	
-	# for term in terms:
-	# 	idf = math.log(N / df[term])
-	# 	tfidf[term] = tf[term] * idf
-	# unit = LA.norm(list(tfidf.values()))
-
+	terms = sorted(list(set(wordsList)))
 	with open('tfidf_output/' + str(docID) +".txt", "w") as f: #Save file in 'tfidf_output' folder
 		f.write('termCount: {:<10}\n'.format(len(terms)))
 		for term in terms:
-			# tfidf[term] /= unit
 			idf = math.log(N / df[term])
 			tfidf = tf[term] * idf
 			f.write('{:<20}{:<20}\n'.format(term, tfidf))
 
-def readVec(doc): #讀取txt檔案
+def readVec(doc):
 	dic = {} # {index : tfidf}
 	docList = re.split('\n', doc)
 	for i in range(1, len(docList)):
